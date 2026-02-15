@@ -53,14 +53,6 @@ return {
       require("catppuccin").setup(opts)
       vim.cmd.colorscheme("catppuccin")
 
-      -- 3. THE FIX: Disable "Semantic Tokens" to restore vibrant colors
-      -- This stops clangd from turning everything grey/white
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          client.server_capabilities.semanticTokensProvider = nil
-        end,
-      })
     end,
   },
 }
