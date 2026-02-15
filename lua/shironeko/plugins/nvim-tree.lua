@@ -15,8 +15,7 @@ return {
         update_root = false       -- Don't change the root when you click a file
       },
       view = {
-        width = 50,
-        relativenumber = true,
+        width = "20%",
       },
       -- change folder arrow icons
       renderer = {
