@@ -26,8 +26,15 @@ return {
       snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
       },
-      
-      -- 1. window: Enable BOTH windows (Completion + Documentation)
+
+      -- 1. THIS IS THE FIX: Auto-select the first item
+      completion = {
+        -- "noinsert": Selects the item but doesn't insert text until you press Enter
+        -- If you see "noselect" here, delete it! That is what stops the coloring.
+        completeopt = "menu,menuone,noinsert",
+      },
+
+      -- 2. Window Settings
       window = {
         completion = {
           border = "rounded",
@@ -36,24 +43,24 @@ return {
           side_padding = 0,
           scrollbar = true,
         },
-        -- This is the "Full Docs" window. It appears to the right of the list.
         documentation = {
           border = "rounded",
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          max_width = 80, -- Allow the docs to be wide enough to read
-          max_height = 20, -- Allow it to be tall enough
+          max_width = 80,
+          max_height = 20,
         },
       },
 
       mapping = cmp.mapping.preset.insert {
         ['<C-j>'] = cmp.mapping.select_next_item(),
         ['<C-k>'] = cmp.mapping.select_prev_item(),
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
         
-        -- 2. Scrolling the Documentation Window
-        ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- Scroll Docs Up
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),  -- Scroll Docs Down
-        
+        -- "select = true" means "Accept currently selected item"
+        -- Since we forced selection above, this now works instantly.
         ['<CR>'] = cmp.mapping.confirm { select = true },
+        
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then cmp.select_next_item()
           elseif luasnip.expand_or_locally_jumpable() then luasnip.expand_or_jump()
@@ -67,7 +74,7 @@ return {
       },
 
       sources = {
-        { name = 'nvim_lsp', max_item_count = 50 }, -- Enough for structs
+        { name = 'nvim_lsp', max_item_count = 50 },
         { name = 'luasnip', max_item_count = 5 },
         { name = 'path', max_item_count = 5 },
         { name = 'buffer', max_item_count = 5 },
@@ -78,8 +85,6 @@ return {
         format = function(entry, vim_item)
           vim_item.kind = string.format(" %s ", kind_icons[vim_item.kind]) 
           
-          -- 3. Keep the LIST narrow (so it doesn't float out)
-          -- But this does NOT affect the documentation window width
           local max_width = 30 
           local label = vim_item.abbr
           local truncated_label = vim.fn.strcharpart(label, 0, max_width)
