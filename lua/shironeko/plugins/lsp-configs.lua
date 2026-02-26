@@ -16,7 +16,7 @@ return {
 
     require("mason").setup()
     mason_lspconfig.setup({
-      ensure_installed = { "clangd", "gopls" },
+      ensure_installed = { "clangd", "gopls", "pyright" },
     })
 
     -- 1. Common Capabilities (Autocomplete)
@@ -90,6 +90,22 @@ return {
                 },
                 staticcheck = true,
                 buildFlags =  {"-tags=with_tla"},
+              },
+            },
+          })
+        end,
+        -- Inside your handlers = { ... }
+        ["pyright"] = function()
+          lspconfig.pyright.setup({
+            capabilities = capabilities,
+            settings = {
+              python = {
+                analysis = {
+                  autoSearchPaths = true,
+                  useLibraryCodeForTypes = true,
+                  diagnosticMode = "openFilesOnly", -- Change to "workspace" if you want to see all errors
+                  typeCheckingMode = "basic",       -- Options: "off", "basic", "strict"
+                },
               },
             },
           })
