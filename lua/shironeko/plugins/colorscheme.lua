@@ -10,11 +10,11 @@ return {
       
       -- 1. Force the vivid styles (Italics make a huge difference)
       styles = {
-        comments = { "italic" },
-        conditionals = { "italic" },
-        loops = { "italic" },
-        functions = { "italic" },
-        keywords = { "italic" },
+        comments = {  },
+        conditionals = { },
+        loops = {  },
+        functions = { },
+        keywords = { },
         strings = {},
         variables = {},
         numbers = {},

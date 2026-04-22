@@ -4,7 +4,7 @@ local keymap = vim.keymap -- for conciseness
 local opts = { noremap = true, silent = true }
 
 -- Save file
-keymap.set("n", "<C-s>", ":w<CR>", { desc = "Save current file" })
+keymap.set("n", "<C-s>", ":wa<CR>", { desc = "Save all file" })
 keymap.set("i", "<C-s>", "<C-o>:w<cr>", { desc = "Save current file" })
 -- Clear highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
@@ -16,9 +16,6 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 -- Press Enter to add a line below
 vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New line below' })
 -- Press Shift+Enter to add a line above (Note: Shift+Enter can be tricky in some terminals)
---
--- Press Enter to add a line below
-vim.keymap.set('n', '<CR>', 'o<Esc>', { desc = 'New line below' })
 vim.keymap.set('n', '<S-CR>', 'O<Esc>', { desc = 'New line above' })
 
 -- Press Shift+Enter to add a line above (Note: Shift+Enter can be tricky in some terminals)
