@@ -65,7 +65,7 @@ return {
       -- Configure Servers via Mason Handlers
       mason_lspconfig.setup({
         -- Added 'ruff' to the list as we discussed earlier
-        ensure_installed = { "gopls", "basedpyright", "ts_ls", "ruff" },
+        ensure_installed = { "gopls", "basedpyright", "ruff" },
         
         handlers = {
           -- Default handler

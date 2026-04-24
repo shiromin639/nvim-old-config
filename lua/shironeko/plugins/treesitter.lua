@@ -3,13 +3,12 @@ return {
   branch = "master", -- ⬅️ THIS IS CRITICAL. Do not use "main"
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
-  
   opts = {
     highlight = { enable = true },
     indent = { enable = true },
     fold = { enable = true },
     ensure_installed = {
-      "c", "cpp", "lua", "go", "gomod", "gowork", 
+      "c", "cpp", "lua", "go", "gomod", "gowork",
       "python", "bash", "json", "vim", "query", "java",
     },
   },
